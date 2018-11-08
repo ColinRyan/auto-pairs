@@ -12,6 +12,14 @@ if exists('g:AutoPairsLoaded') || &cp
 end
 let g:AutoPairsLoaded = 1
 
+if !exists('g:AutoPairsDelete')
+  let g:AutoPairsDelete = 1
+end
+
+if !exists('g:AutoPairsInsert')
+  let g:AutoPairsInsert = 1
+end
+
 if !exists('g:AutoPairs')
   let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 end
@@ -99,6 +107,10 @@ function! AutoPairsInsert(key)
   if !b:autopairs_enabled
     return a:key
   end
+
+  if !g:AutoPairsInsert
+      return a:key
+  endif
 
   let line = getline('.')
   let pos = col('.') - 1
@@ -227,6 +239,10 @@ function! AutoPairsDelete()
   if !b:autopairs_enabled
     return "\<BS>"
   end
+
+  if !g:AutoPairsDelete
+      return "\<BS>"
+  endif
 
   let line = getline('.')
   let pos = col('.') - 1
